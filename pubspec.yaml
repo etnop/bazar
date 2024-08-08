@@ -1,0 +1,44 @@
+name: bazar
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+    
+  sqflite: ^2.3.0
+
+  sqflite_common_ffi: ^2.0.1
+  path: ^1.8.1
+  pdf: ^3.10.7
+  path_provider: ^2.1.2
+  open_file: ^3.3.2
+  open_document: ^1.0.4
+  printing: ^5.5.0
+  icons_launcher: ^2.1.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+icons_launcher:
+  image_path: "lib/assents/icon.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
+    linux:
+      enable: true
+      image_path: "lib/assents/icon.png"
+flutter:
+  uses-material-design: true
+  assets:
+    - fonts/open-sans.regular.ttf
+    - lib/assents/template.svg
+    - lib/assents/icon.png
