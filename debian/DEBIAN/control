@@ -1,0 +1,7 @@
+Package: my-linux-app
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: amd64
+Maintainer: Your Name <your.email@example.com>
+Description: A description of my Flutter app
