@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(git -C \"c:\\\\Users\\\\pmponte\\\\Projectos\\\\bazar\" log --oneline --follow lib/screens/artigo_screen.dart)",
+      "PowerShell(git -C \"c:\\\\Users\\\\pmponte\\\\Projectos\\\\bazar\" diff HEAD lib/screens/home_screen.dart)",
+      "Read(//c/Users/pmponte/**)",
+      "PowerShell(Get-ChildItem -Path \"$env:USERPROFILE\\\\AppData\\\\Local\\\\Pub\\\\Cache\" -ErrorAction SilentlyContinue | Select-Object Name)",
+      "PowerShell(git -C \"c:\\\\Users\\\\pmponte\\\\Projectos\\\\bazar\" add lib/controllers/home_controller.dart lib/screens/home_screen.dart seed_data.sql)",
+      "PowerShell(git -C \"c:\\\\Users\\\\pmponte\\\\Projectos\\\\bazar\" add -u)"
+    ]
+  }
+}
