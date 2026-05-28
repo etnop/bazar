@@ -7,6 +7,8 @@ import 'package:bazar/screens/familia_screen.dart';
 import 'package:bazar/screens/home_screen.dart';
 
 class ArtigoForm extends StatefulWidget {
+  const ArtigoForm({super.key});
+
   @override
   _ArtigoFormState createState() => _ArtigoFormState();
 }
@@ -26,16 +28,18 @@ class _ArtigoFormState extends State<ArtigoForm> {
 
     getfamilias();
   }
+
   Future<void> _navigateToFamiliaForm() async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => FamiliaScreen()),
     );
-      print(result);
+    print(result);
     if (result == true) {
       getfamilias(); // Atualiza os dados se o resultado for verdadeiro
     }
   }
+
   Future<void> getfamilias() async {
     try {
       List<Familia> value = await DatabaseHelper().readDataFamila();
@@ -102,7 +106,7 @@ class _ArtigoFormState extends State<ArtigoForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Novo Artigo'),
+        title: const Text('Novo Artigo'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -112,7 +116,7 @@ class _ArtigoFormState extends State<ArtigoForm> {
             children: <Widget>[
               TextFormField(
                 controller: _numeroController,
-                decoration: InputDecoration(labelText: 'numero'),
+                decoration: const InputDecoration(labelText: 'numero'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a name';
@@ -122,7 +126,7 @@ class _ArtigoFormState extends State<ArtigoForm> {
               ),
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(labelText: 'Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a name';
@@ -133,8 +137,8 @@ class _ArtigoFormState extends State<ArtigoForm> {
               Row(children: [
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    value: _selectedFamilia,
-                    decoration: InputDecoration(labelText: 'Familia'),
+                    initialValue: _selectedFamilia,
+                    decoration: const InputDecoration(labelText: 'Familia'),
                     items: _familiaOptions.map((Familia value) {
                       return DropdownMenuItem<String>(
                         value: value.id.toString(),
@@ -155,17 +159,16 @@ class _ArtigoFormState extends State<ArtigoForm> {
                     },
                   ),
                 ),
-               IconButton(
+                IconButton(
                   iconSize: 50,
                   icon: const Icon(Icons.add_link),
-                  onPressed:_navigateToFamiliaForm,
-                  
+                  onPressed: _navigateToFamiliaForm,
                 ),
-                SizedBox(width: 10)
+                const SizedBox(width: 10)
               ]),
               TextFormField(
                 controller: _stockController,
-                decoration: InputDecoration(labelText: 'Stock'),
+                decoration: const InputDecoration(labelText: 'Stock'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -177,11 +180,11 @@ class _ArtigoFormState extends State<ArtigoForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 ElevatedButton(
                   onPressed: _submitForm,
-                  child: Text('Guardar'),
+                  child: const Text('Guardar'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -189,14 +192,13 @@ class _ArtigoFormState extends State<ArtigoForm> {
                       Navigator.pop(context, true);
                     });
                   },
-                  child: Text('Guardar e voltar'),
+                  child: const Text('Guardar e voltar'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-
                     Navigator.pop(context, true);
                   },
-                  child: Text('voltar'),
+                  child: const Text('voltar'),
                 ),
               ]),
             ],

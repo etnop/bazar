@@ -17,7 +17,7 @@ class DatabaseHelper {
     }
     Directory directory = await getApplicationDocumentsDirectory();
     final path = join(directory.path, 'database.db');
-    // print(path);
+    print(path);
     _db = await openDatabase(path, version: 1, onCreate: (db, version) {
       db.execute('''
           CREATE TABLE IF NOT EXISTS familia (
@@ -51,66 +51,65 @@ CREATE TABLE  IF NOT EXISTS movimento (
   }
 
   Future<void> movimentarSaida(Movimento movimento) async {
-    Database? _db = await db;
-    await _db!.insert('movimento', movimento.toMap());
-  } 
-
+    Database? database = await db;
+    await database!.insert('movimento', movimento.toMap());
+  }
 
   Future<void> insertArtigo(Artigo artigo) async {
-    Database? _db = await db;
-    await _db!.insert('artigo', artigo.toMap());
-  } 
-  Future<void> insertFamilia(Familia familia) async {
-    Database? _db = await db;
-    await _db!.insert('familia', familia.toMap());
-  } 
-  Future<void> insertSerie(Familia familia) async {
-    Database? _db = await db;
-    await _db!.insert('serie', familia.toMap());
-  } 
+    Database? database = await db;
+    await database!.insert('artigo', artigo.toMap());
+  }
 
+  Future<void> insertFamilia(Familia familia) async {
+    Database? database = await db;
+    await database!.insert('familia', familia.toMap());
+  }
+
+  Future<void> insertSerie(Familia familia) async {
+    Database? database = await db;
+    await database!.insert('serie', familia.toMap());
+  }
 
   Future<Artigo> lastnumero(int familia) async {
-    Database? _db = await db;
-final List<Map<String, dynamic>> maps = await _db!.rawQuery('''
+    Database? database = await db;
+    final List<Map<String, dynamic>> maps = await database!.rawQuery('''
     SELECT *
     FROM artigo
     WHERE familia = ?
     ORDER BY id DESC
     LIMIT 1
   ''', [familia]);
- return Artigo.fromMap(maps.first);
+    return Artigo.fromMap(maps.first);
   }
- 
+
   Future<Familia> getSerie() async {
-    Database? _db = await db;
-final List<Map<String, dynamic>> maps = await _db!.rawQuery('''
+    Database? database = await db;
+    final List<Map<String, dynamic>> maps = await database!.rawQuery('''
     SELECT *
     FROM serie
     ORDER BY id DESC
     LIMIT 1
   ''');
-  print(maps);
-  if(maps.isEmpty){
-    return Familia(name: "");
-  }
- return Familia.fromMap(maps.first);
+    print(maps);
+    if (maps.isEmpty) {
+      return Familia(name: "");
+    }
+    return Familia.fromMap(maps.first);
   }
 
   Future<List<Familia>> readDataFamila() async {
-    final _db = await db;
-    final List<Map<String, dynamic>> maps = await _db!.query('familia',  orderBy: 'name ASC'
-);
+    final database = await db;
+    final List<Map<String, dynamic>> maps =
+        await database!.query('familia', orderBy: 'name ASC');
 
     return List.generate(maps.length, (i) {
       return Familia.fromMap(maps[i]);
     });
-    
   }
 
   Future<List<ArtigoResource>> readDataArtigos() async {
-    final _db = await db;
-    final List<Map<String, dynamic>> maps = await _db!.rawQuery('''
+    final database = await db;
+    final List<Map<String, dynamic>> maps = await database!.rawQuery('''
           SELECT a.id, a.name, f.name as familia,  COALESCE(SUM(m.qtd), 0) as stock 
  FROM artigo a  
 left JOIN movimento m ON a.id = m.artigo
@@ -122,8 +121,4 @@ INNER JOIN familia f ON a.familia = f.id
       return ArtigoResource.fromMap(maps[i]);
     });
   }
-
-
-
-
 }

@@ -6,15 +6,14 @@ import 'package:bazar/screens/home_screen.dart';
 
 class AddSeriesScreen extends StatelessWidget {
   final _serieController = TextEditingController();
+
+  AddSeriesScreen({super.key});
   Future<void> setSerie(BuildContext context) async {
     serie = _serieController.text;
-      
-    Familia newFamilia = Familia(
-       
-        name: serie
-      );
-      // Print the newArtigo details to the console
-      await DatabaseHelper().insertSerie(newFamilia);
+
+    Familia newFamilia = Familia(name: serie);
+    // Print the newArtigo details to the console
+    await DatabaseHelper().insertSerie(newFamilia);
     Navigator.pop(context);
   }
 
@@ -22,14 +21,14 @@ class AddSeriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Series'),
+        title: const Text('Add Series'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Nova serie'),
-            SizedBox(height: 20),
+            const Text('Nova serie'),
+            const SizedBox(height: 20),
             TextField(
               controller: _serieController,
             ),
@@ -37,7 +36,7 @@ class AddSeriesScreen extends StatelessWidget {
               onPressed: () {
                 setSerie(context);
               },
-              child: Text('Salvar'),
+              child: const Text('Salvar'),
             ),
           ],
         ),
