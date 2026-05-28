@@ -2,13 +2,11 @@
 
 import 'package:flutter/services.dart';
 import 'package:bazar/database/database_helper.dart';
-import 'package:bazar/model/artigo.dart';
 import 'package:bazar/model/familia.dart';
 import 'package:bazar/model/movimento.dart';
 import 'package:bazar/resourses/artigo_resouce.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'dart:typed_data';
 
 class HomeController {
   List<ArtigoResource> dataList = [];
@@ -45,23 +43,23 @@ class HomeController {
         left: currentLeft,
         top: currentTop,
         child: pw.Opacity(
-          opacity: 1, // Ajusta a opacidade para 50%
+          opacity: 1,
           child: pw.Container(
-            width: 60,
-            height: 60,
+            width: 100,
+            height: 100,
             child: svgImage,
           ),
         ),
       );
       svgWidgets.add(svgContainer);
-      if (i % 8 == 0) {
-        currentLeft = 0; // Incrementa a posição com sobreposição
-        currentTop += 60;
+      if (i % 5 == 0) {
+        currentLeft = 0;
+        currentTop += 100;
         linhas++;
       } else {
-        currentLeft += 60; // Incrementa a posição com sobreposição
+        currentLeft += 100;
       }
-      if (linhas == 12 || i == listasvg.length - 1) {
+      if (linhas == 8 || i == listasvg.length - 1) {
         paginas.add(svgWidgets);
         svgWidgets = [];
         linhas = 0;
@@ -75,7 +73,9 @@ class HomeController {
     for (var element in paginas) {
       pdf.addPage(
         pw.Page(
-          pageFormat: PdfPageFormat.a4,
+          pageFormat: const PdfPageFormat(
+              21.0 * PdfPageFormat.cm, 29.7 * PdfPageFormat.cm,
+              marginAll: 15),
           build: (pw.Context context) {
             return pw.Stack(
               children: element,

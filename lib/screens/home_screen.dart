@@ -13,6 +13,8 @@ import 'package:printing/printing.dart';
 import 'dart:typed_data';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -127,21 +129,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Artigos'),
+          title: Text(serie),
           actions: <Widget>[
-            Center(
-                child:
-                    Text(serie)), // Centering the text vertically in the AppBar
-            SizedBox(width: 16), // Adds some space before the first button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: IconButton(
                 icon: const Icon(Icons.add_circle),
                 tooltip: 'Novo Artigo',
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, // background (primary) color
-                  foregroundColor: Colors.white, // foreground (text) color
-                ),
                 onPressed: _navigateToArtigoForm,
               ),
             ),
@@ -150,10 +144,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               child: IconButton(
                 icon: const Icon(Icons.print),
                 tooltip: 'Imprimir Bilhetes',
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, // background (primary) color
-                  foregroundColor: Colors.white, // foreground (text) color
-                ),
                 onPressed: () async {
                   final pdfData = await homeController.imprimir(serie);
                   await Printing.layoutPdf(
@@ -162,32 +152,31 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 },
               ),
             ),
-            SizedBox(width: 16), // Adds some space after the last button
           ],
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
-              decoration: InputDecoration(hintText: "Numero do artigo"),
+              decoration: const InputDecoration(hintText: "Numero do artigo"),
               controller: controller,
               onChanged: _filterList,
             ),
-            SizedBox(height: 20),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: SingleChildScrollView(
-                child: Container(
+                child: SizedBox(
                   width: double
                       .infinity, // Garante que a largura do Container seja 100%
 
                   child: DataTable(
-                    columns: [
-                      DataColumn(label: Text('Numero')),
-                      DataColumn(label: Text('Descrição')),
-                      DataColumn(label: Text('Familia')),
-                      DataColumn(label: Text('Stock')),
-                      DataColumn(label: Text('Ação')),
+                    columns: const [
+                      DataColumn(label: const Text('Numero')),
+                      DataColumn(label: const Text('Descrição')),
+                      DataColumn(label: const Text('Familia')),
+                      DataColumn(label: const Text('Stock')),
+                      DataColumn(label: const Text('Ação')),
                     ],
                     rows: [
                       for (var item in dataList)
@@ -211,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                       foregroundColor: Colors
                                           .white, // foreground (text) color
                                     ),
-                                    child: Text('Anular'),
+                                    child: const Text('Anular'),
                                   )),
                               Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -226,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                       foregroundColor: Colors
                                           .white, // foreground (text) color
                                     ),
-                                    child: Text('Saida'),
+                                    child: const Text('Saida'),
                                   )),
                             ],
                           )),
